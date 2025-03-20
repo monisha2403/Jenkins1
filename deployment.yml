@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-ecommerce-deployment
+  labels:
+    app: react-ecommerce
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-ecommerce
+  template:
+    metadata:
+      labels:
+        app: react-ecommerce
+    spec:
+      containers:
+      - name: react-ecommerce
+        image: ecommerce:latest
+        imagePullPolicy: Never # Added a specific tag for better version control
+        ports:
+        - containerPort: 80

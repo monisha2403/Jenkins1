@@ -1,17 +1,7 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy only necessary files into the container
-COPY requirements.txt /app/
-
-# Install any dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application files
-COPY . /app
-
-# Specify the command to run on container start
-CMD ["python", "app.py"]
+FROM nginx:latest
+# Copy the built files from the previous stage
+COPY build/ /usr/share/nginx/html
+# Expose port 80 (the default HTTP port)
+EXPOSE 80
+# Start Nginx and keep it running in the foreground
+CMD ["nginx", "-g", "daemon off;"]
